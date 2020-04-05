@@ -1,7 +1,9 @@
 package com.unclew.compiler.lexical.statemachine;
 
-import com.unclew.compiler.lexical.ItemScanningFactory;
-import com.unclew.compiler.lexical.SimpleTokenMachine;
+import com.unclew.compiler.lexical.common.State;
+import com.unclew.compiler.lexical.common.Token;
+import com.unclew.compiler.lexical.statemachine.utils.ItemScanningFactory;
+import com.unclew.compiler.lexical.statemachine.utils.SimpleTokenMachine;
 
 /**
  * Created by wuyingqiang

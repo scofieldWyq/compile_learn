@@ -1,5 +1,7 @@
 package com.unclew.compiler.lexical;
 
+import com.unclew.compiler.lexical.statemachine.utils.ItemScanningFactory;
+import com.unclew.compiler.lexical.statemachine.utils.SimpleILetterMachine;
 import org.junit.Before;
 import org.junit.Test;
 

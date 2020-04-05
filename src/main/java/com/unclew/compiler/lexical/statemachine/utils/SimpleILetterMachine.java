@@ -1,4 +1,4 @@
-package com.unclew.compiler.lexical;
+package com.unclew.compiler.lexical.statemachine.utils;
 
 /**
  * Created by wuyingqiang

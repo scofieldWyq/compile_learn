@@ -1,4 +1,4 @@
-package com.unclew.compiler.lexical.statemachine;
+package com.unclew.compiler.lexical.common;
 
 /**
  * Created by wuyingqiang
@@ -18,11 +18,11 @@ public class Token {
         state = initState;
     }
 
-    void append(char c) {
+    public void append(char c) {
         strBuilder.append(c);
     }
 
-    void changeState(State state) {
+    public void changeState(State state) {
         this.state = state;
     }
 
