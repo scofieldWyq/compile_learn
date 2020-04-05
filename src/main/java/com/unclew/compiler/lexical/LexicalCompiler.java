@@ -27,12 +27,4 @@ public class LexicalCompiler {
     public SimpleTokenMachine parsing() {
         return lexicalMachine.parsing();
     }
-
-    public static void main(String[] args) {
-        String str = "int age; age = 46; 2 + 3 * 56; age > 30; age >= 40;";
-        LexicalCompiler lexicalCompiler = new LexicalCompiler(str);
-        SimpleTokenMachine tokenMachine = lexicalCompiler.parsing();
-        System.out.println();
-        System.out.println(tokenMachine);
-    }
 }
