@@ -28,9 +28,9 @@ public class Token {
 
     @Override
     public String toString() {
-        return "Token{" +
-                "state=" + state +
-                ", strBuilder=\'" + strBuilder + "\'" +
-                '}';
+        return "\nToken{" +
+                "type=" + state +
+                ", text=\'" + strBuilder + "\'" +
+                "}";
     }
 }

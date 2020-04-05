@@ -64,8 +64,8 @@ public class SimpleTokenMachine implements ItemScanningFactory<Token> {
     @Override
     public String toString() {
         return "SimpleTokenMachine{" +
-                "tokens=" + tokens +
-                ", size=" + tokens.size() +
-                '}';
+                "\ntokens=[" + tokens +
+                "]\nsize=" + tokens.size() +
+                "\n}";
     }
 }

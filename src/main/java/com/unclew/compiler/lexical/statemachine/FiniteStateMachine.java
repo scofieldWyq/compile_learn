@@ -136,6 +136,11 @@ public class FiniteStateMachine {
             if (currentState == State.Init && t != null) {
                 stm.addToken(t);
                 t = null;
+
+                if(c == ';') {
+                    letterFactory.read();
+                    stm.addToken(new Token(c, State.End));
+                }
             }
         }
 
