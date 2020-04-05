@@ -1,6 +1,6 @@
 package com.unclew.compiler.lexical;
 
-import com.unclew.compiler.lexical.statemachine.utils.SimpleTokenMachine;
+import com.unclew.compiler.grammar.utils.SimpleTokenMachine;
 import org.junit.Before;
 import org.junit.Test;
 

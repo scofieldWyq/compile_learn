@@ -1,6 +1,7 @@
-package com.unclew.compiler.lexical.statemachine.utils;
+package com.unclew.compiler.grammar.utils;
 
 import com.unclew.compiler.lexical.common.Token;
+import com.unclew.compiler.lexical.statemachine.utils.ItemScanningFactory;
 
 import java.util.LinkedList;
 import java.util.List;

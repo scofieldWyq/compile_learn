@@ -3,7 +3,7 @@ package com.unclew.compiler.lexical.statemachine;
 import com.unclew.compiler.lexical.common.State;
 import com.unclew.compiler.lexical.common.Token;
 import com.unclew.compiler.lexical.statemachine.utils.ItemScanningFactory;
-import com.unclew.compiler.lexical.statemachine.utils.SimpleTokenMachine;
+import com.unclew.compiler.grammar.utils.SimpleTokenMachine;
 
 /**
  * Created by wuyingqiang

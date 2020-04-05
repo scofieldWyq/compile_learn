@@ -18,6 +18,14 @@ public class Token {
         state = initState;
     }
 
+    public State getState() {
+        return state;
+    }
+
+    public String getText() {
+        return strBuilder.toString();
+    }
+
     public void append(char c) {
         strBuilder.append(c);
     }

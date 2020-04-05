@@ -2,7 +2,7 @@ package com.unclew.compiler.lexical;
 
 import com.unclew.compiler.lexical.statemachine.FiniteStateMachine;
 import com.unclew.compiler.lexical.statemachine.utils.SimpleILetterMachine;
-import com.unclew.compiler.lexical.statemachine.utils.SimpleTokenMachine;
+import com.unclew.compiler.grammar.utils.SimpleTokenMachine;
 
 /**
  * Created by wuyingqiang
