@@ -1,5 +1,6 @@
 package com.unclew.compiler.grammar;
 
+import com.unclew.compiler.grammar.common.ASTType;
 import com.unclew.compiler.lexical.common.State;
 import com.unclew.compiler.lexical.common.Token;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * Created by wuyingqiang
  * on 2020/4/5-6:23 下午.
  * <p>
- * 抽象语法树节点
+ * 抽象语法树节点，每一个 AST 节点都是一个可计算的节点
  *
  * @author wuyingqiang
  * @since 1.0
