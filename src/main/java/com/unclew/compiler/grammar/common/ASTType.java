@@ -9,4 +9,6 @@ package com.unclew.compiler.grammar.common;
  */
 public enum ASTType {
     IntDeclaration,
+    Assignment,
+    Digit,
 }

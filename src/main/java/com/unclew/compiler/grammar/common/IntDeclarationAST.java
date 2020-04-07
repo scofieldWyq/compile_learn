@@ -9,20 +9,19 @@ import java.util.List;
  *
  * Int 定义的语法规则
  *
+ * 定义一个 Int 变量
+ *
  * @author wuyingqiang
  * @since 1.0
  */
-public class IntDeclarationAST implements AST {
-    private String text;
+public class IntDeclarationAST extends AST {
     private List<AST> children = null;
 
     public IntDeclarationAST(String text) {
-        this.text = text;
+        super(text, ASTType.IntDeclaration);
     }
 
-
-
-    public void execute() {
+    public void execute(AST parent) {
         // 执行计算过程
     }
 

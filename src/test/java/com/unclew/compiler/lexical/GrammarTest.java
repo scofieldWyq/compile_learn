@@ -2,6 +2,7 @@ package com.unclew.compiler.lexical;
 
 import com.unclew.compiler.grammar.ASTNode;
 import com.unclew.compiler.grammar.GrammarCompiler;
+import com.unclew.compiler.grammar.common.AST;
 import com.unclew.compiler.grammar.utils.SimpleTokenMachine;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +28,7 @@ public class GrammarTest {
         LexicalCompiler lexicalCompiler = new LexicalCompiler(str);
         SimpleTokenMachine tokenMachine = lexicalCompiler.parsing();
 
-        ASTNode intDeclarationNode = compiler.intDeclaration(tokenMachine);
+        AST intDeclarationNode = compiler.intDeclaration(tokenMachine);
         System.out.println();
         System.out.println(intDeclarationNode);
     }

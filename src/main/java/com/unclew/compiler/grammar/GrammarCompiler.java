@@ -1,5 +1,7 @@
 package com.unclew.compiler.grammar;
 
+import com.unclew.compiler.grammar.common.AST;
+import com.unclew.compiler.grammar.common.ASTType;
 import com.unclew.compiler.grammar.utils.SimpleTokenMachine;
 import com.unclew.compiler.lexical.common.State;
 import com.unclew.compiler.lexical.common.Token;
@@ -12,50 +14,65 @@ import com.unclew.compiler.lexical.common.Token;
  * @since 1.0
  */
 public class GrammarCompiler {
-    public ASTNode intDeclaration(SimpleTokenMachine stm) throws Exception {
+
+    // 定义 Int
+    // int <identifier> (= add);
+    public AST intDeclaration(SimpleTokenMachine stm) throws Exception {
         // 解析 "定义int变量"
         // intDeclaration := int identifier;
-        ASTNode root = null;
-        ASTNode node1 = null;
-        ASTNode node2 = null;
+        AST root = null;
+        AST node1 = null;
+        AST node2 = null;
 
         int count = 0;
-
         Token t = stm.preview();
         if(t != null && t.getState() == State.Int) {
-            root = new ASTNode(t);
-            node1 = root;
             stm.read();
             count++;
             t = stm.preview();
 
-            if(t != null && t.getState() == State.Identifier) {
-                node2 = new ASTNode(t);
-                node1.addNode(node2);
-                node1 = node2;
-
+            if (t.getState() == State.Identifier) {
+                root = new AST(t.getText(), ASTType.IntDeclaration);
                 stm.read();
                 count++;
                 t = stm.preview();
 
-                if(t != null && t.getState() == State.End) {
-                    // end here.
-                    node2 = new ASTNode(t);
-                    node1.addNode(node2);
+                if (t.getState() == State.EQ) {
+                    node1 = new AST(t.getText(), ASTType.Assignment);
                     stm.read();
-                    return root;
+                    count++;
+                    node2 = expression(stm);
+                    if(node2 == null) {
+                        stm.unread(count);
+                        throw new Exception("assignment error");
+                    } else {
+                        node1.addChild(node2);
+                        root.addChild(node1);
+                    }
+                } else if (t.getState() == State.End) {
+                    stm.read();
                 }
-
-                stm.unread(count);
-                throw new Exception("syntax error here: no ';' for end");
-
             } else {
                 stm.unread(count);
-                throw new Exception("syntax error here: " + t);
+                throw new Exception("int declaration error");
             }
-        } else {
-            return null;
         }
+
+        return root;
+    }
+
+    // 直接返回数值
+    public AST expression(SimpleTokenMachine stm){
+        AST root = null;
+        int count = 0;
+
+        Token t = stm.preview();
+        if(t.getState() == State.Digit) {
+            root = new AST(t.getText(), ASTType.Digit);
+            stm.read();
+        }
+
+        return root;
     }
 
     public void parsing() {
