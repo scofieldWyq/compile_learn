@@ -24,7 +24,7 @@ public class GrammarTest {
 
     @Test
     public void testIntDeclaration() throws Exception {
-        String str = "int age;";
+        String str = "int";
         LexicalCompiler lexicalCompiler = new LexicalCompiler(str);
         SimpleTokenMachine tokenMachine = lexicalCompiler.parsing();
 

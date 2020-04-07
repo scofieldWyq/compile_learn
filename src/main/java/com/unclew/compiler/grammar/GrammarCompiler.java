@@ -31,30 +31,30 @@ public class GrammarCompiler {
             count++;
             t = stm.preview();
 
-            if (t.getState() == State.Identifier) {
+            if (t != null && t.getState() == State.Identifier) {
                 root = new AST(t.getText(), ASTType.IntDeclaration);
                 stm.read();
                 count++;
                 t = stm.preview();
 
-                if (t.getState() == State.EQ) {
+                if (t != null && t.getState() == State.EQ) {
                     node1 = new AST(t.getText(), ASTType.Assignment);
                     stm.read();
                     count++;
                     node2 = expression(stm);
                     if(node2 == null) {
                         stm.unread(count);
-                        throw new Exception("assignment error");
+                        throw new Exception("assignment error: no right expression to assign to left.");
                     } else {
                         node1.addChild(node2);
                         root.addChild(node1);
                     }
-                } else if (t.getState() == State.End) {
+                } else if (t != null && t.getState() == State.End) {
                     stm.read();
                 }
             } else {
                 stm.unread(count);
-                throw new Exception("int declaration error");
+                throw new Exception("int declaration error: no variable to declare");
             }
         }
 
@@ -67,7 +67,7 @@ public class GrammarCompiler {
         int count = 0;
 
         Token t = stm.preview();
-        if(t.getState() == State.Digit) {
+        if(t != null && t.getState() == State.Digit) {
             root = new AST(t.getText(), ASTType.Digit);
             stm.read();
         }

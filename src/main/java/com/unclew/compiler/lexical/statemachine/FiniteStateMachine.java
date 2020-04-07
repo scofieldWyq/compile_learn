@@ -146,6 +146,12 @@ public class FiniteStateMachine {
             }
         }
 
+        // 收尾
+        if(t != null) {
+            stm.addToken(t);
+            t = null;
+        }
+
         return stm;
     }
 
