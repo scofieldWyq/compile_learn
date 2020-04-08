@@ -41,7 +41,7 @@ public class GrammarCompiler {
                     node1 = new AST(t.getText(), ASTType.Assignment);
                     stm.read();
                     count++;
-                    node2 = expression(stm);
+                    node2 = addExpression(stm);
                     if(node2 == null) {
                         stm.unread(count);
                         throw new Exception("assignment error: no right expression to assign to left.");
@@ -62,6 +62,28 @@ public class GrammarCompiler {
     }
 
     // 直接返回数值
+
+    /**
+     * 表达式
+     *
+     * add := add + mul | mul
+     * mul := mul * pri | pri
+     * pri := Identifier | Digit | (add)
+     *
+     * add  := mul add'
+     * add' := +mul add'
+     *
+     * -> add := mul (+ mul)*
+     *
+     * mul  := pri mul'
+     * mul' := *pri mul'
+     *
+     * -> mul := pri (*pri)*
+     *
+     *
+     * @param stm
+     * @return
+     */
     public AST expression(SimpleTokenMachine stm){
         AST root = null;
         int count = 0;
@@ -73,6 +95,98 @@ public class GrammarCompiler {
         }
 
         return root;
+    }
+
+    public AST addExpression(SimpleTokenMachine stm) throws Exception {
+        // add := mul (+ mul)*
+
+        AST root = null;
+        AST mul = mulExpression(stm);
+        AST node2 = null;
+
+        if(mul != null) {
+            while(true) {
+                stm.read();
+                Token t = stm.preview();
+                if(t != null && t.getState() == State.Plus) {
+                    root = new AST(t.getText(), ASTType.Add);
+
+                    stm.read();
+                    node2 = mulExpression(stm);
+
+                    if(node2 != null) {
+                        root.addChild(mul);
+                        root.addChild(node2);
+                        mul = root;
+                    } else {
+                        throw new Exception("plus no right expression");
+                    }
+                } else {
+                    break;
+                }
+            }
+
+        }
+
+        return mul;
+    }
+
+    public AST mulExpression(SimpleTokenMachine stm) throws Exception {
+        // mul := pri (*pri)*
+        AST root = null;
+        AST pri = null;
+        AST node2 = null;
+
+        pri = priExpression(stm);
+        if(pri != null){
+            Token t = null;
+
+            while(true) {
+                t = stm.preview();
+                if(t != null && t.getState() == State.Mul) {
+                    stm.read();
+                    node2 = priExpression(stm);
+                    if(node2 != null) {
+                        root = new AST(t.getText(), ASTType.Mul);
+                        root.addChild(pri);
+                        root.addChild(node2);
+                        pri = root;
+                    } else {
+                        throw new Exception("mul no right pri");
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+
+        return pri;
+    }
+
+    public AST priExpression(SimpleTokenMachine stm) {
+        // pri := Identifier | Digit
+        Token t = stm.preview();
+
+
+        if(t != null) {
+            ASTType type = null;
+
+            switch (t.getState()) {
+                case Identifier:
+                    type = ASTType.Indentifier;
+                    break;
+                case Digit:
+                    type = ASTType.Digit;
+                    break;
+            }
+
+            if(type != null) {
+                stm.read();
+                return new AST(t.getText(), type);
+            }
+        }
+
+        return null;
     }
 
     public void parsing() {
