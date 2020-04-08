@@ -106,12 +106,12 @@ public class GrammarCompiler {
 
         if(mul != null) {
             while(true) {
-                stm.read();
+
                 Token t = stm.preview();
                 if(t != null && t.getState() == State.Plus) {
+                    stm.read();
                     root = new AST(t.getText(), ASTType.Add);
 
-                    stm.read();
                     node2 = mulExpression(stm);
 
                     if(node2 != null) {
