@@ -30,7 +30,7 @@ public class GrammarCompiler {
 
         int count = 0;
         Token t = stm.preview();
-        if(t != null && t.getState() == State.Int) {
+        if (t != null && t.getState() == State.Int) {
             stm.read();
             count++;
             t = stm.preview();
@@ -46,7 +46,7 @@ public class GrammarCompiler {
                     stm.read();
                     count++;
                     node2 = addExpression(stm);
-                    if(node2 == null) {
+                    if (node2 == null) {
                         stm.unread(count);
                         throw new Exception("assignment error: no right expression to assign to left.");
                     } else {
@@ -69,36 +69,27 @@ public class GrammarCompiler {
 
     /**
      * 表达式
-     *
+     * <p>
      * add := add + mul | mul
      * mul := mul * pri | pri
      * pri := Identifier | Digit | (add)
-     *
+     * <p>
      * add  := mul add'
      * add' := +mul add'
-     *
+     * <p>
      * -> add := mul (+ mul)*
-     *
+     * <p>
      * mul  := pri mul'
      * mul' := *pri mul'
-     *
+     * <p>
      * -> mul := pri (*pri)*
-     *
      *
      * @param stm
      * @return
      */
-    public AST expression(SimpleTokenMachine stm){
-        AST root = null;
-        int count = 0;
-
-        Token t = stm.preview();
-        if(t != null && t.getState() == State.Digit) {
-            root = new AST(t.getText(), ASTType.Digit);
-            stm.read();
-        }
-
-        return root;
+    public AST expression(SimpleTokenMachine stm) {
+        // TODO 实现 表达式，C 语言的表达式文法规则。
+        return null;
     }
 
     public AST addExpression(SimpleTokenMachine stm) throws Exception {
@@ -108,13 +99,13 @@ public class GrammarCompiler {
         AST mul = mulExpression(stm);
         AST node2 = null;
 
-        if(mul != null) {
-            while(true) {
+        if (mul != null) {
+            while (true) {
 
                 Token t = stm.preview();
-                if(t != null && (t.getState() == State.Plus || t.getState() == State.Min)) {
+                if (t != null && (t.getState() == State.Plus || t.getState() == State.Min)) {
                     stm.read();
-                    if(t.getState() == State.Plus) {
+                    if (t.getState() == State.Plus) {
                         root = new AST(t.getText(), ASTType.Add);
                     } else {
                         root = new AST(t.getText(), ASTType.Min);
@@ -122,7 +113,7 @@ public class GrammarCompiler {
 
                     node2 = mulExpression(stm);
 
-                    if(node2 != null) {
+                    if (node2 != null) {
                         root.addChild(mul);
                         root.addChild(node2);
                         mul = root;
@@ -146,16 +137,16 @@ public class GrammarCompiler {
         AST node2 = null;
 
         pri = priExpression(stm);
-        if(pri != null){
+        if (pri != null) {
             Token t = null;
 
-            while(true) {
+            while (true) {
                 t = stm.preview();
-                if(t != null && (t.getState() == State.Mul || t.getState() == State.Div)) {
+                if (t != null && (t.getState() == State.Mul || t.getState() == State.Div)) {
                     stm.read();
                     node2 = priExpression(stm);
-                    if(node2 != null) {
-                        if(t.getState() == State.Mul) {
+                    if (node2 != null) {
+                        if (t.getState() == State.Mul) {
                             root = new AST(t.getText(), ASTType.Mul);
                         } else {
                             root = new AST(t.getText(), ASTType.Div);
@@ -181,7 +172,7 @@ public class GrammarCompiler {
         Token t = stm.preview();
 
 
-        if(t != null) {
+        if (t != null) {
             ASTType type = null;
 
             switch (t.getState()) {
@@ -193,7 +184,7 @@ public class GrammarCompiler {
                     break;
             }
 
-            if(type != null) {
+            if (type != null) {
                 stm.read();
                 return new AST(t.getText(), type);
             }
