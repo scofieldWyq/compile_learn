@@ -12,6 +12,8 @@ public enum ASTType {
     Assignment,
     Digit,
     Add,
+    Min,
+    Div,
     Mul,
     Indentifier,
 }

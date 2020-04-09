@@ -15,7 +15,11 @@ import com.unclew.compiler.lexical.common.Token;
  */
 public class GrammarCompiler {
 
+    // 语法分析：
+    // 定于整型变量
+    // 计算表达式
     // 定义 Int
+
     // int <identifier> (= add);
     public AST intDeclaration(SimpleTokenMachine stm) throws Exception {
         // 解析 "定义int变量"
@@ -108,9 +112,13 @@ public class GrammarCompiler {
             while(true) {
 
                 Token t = stm.preview();
-                if(t != null && t.getState() == State.Plus) {
+                if(t != null && (t.getState() == State.Plus || t.getState() == State.Min)) {
                     stm.read();
-                    root = new AST(t.getText(), ASTType.Add);
+                    if(t.getState() == State.Plus) {
+                        root = new AST(t.getText(), ASTType.Add);
+                    } else {
+                        root = new AST(t.getText(), ASTType.Min);
+                    }
 
                     node2 = mulExpression(stm);
 
@@ -143,11 +151,16 @@ public class GrammarCompiler {
 
             while(true) {
                 t = stm.preview();
-                if(t != null && t.getState() == State.Mul) {
+                if(t != null && (t.getState() == State.Mul || t.getState() == State.Div)) {
                     stm.read();
                     node2 = priExpression(stm);
                     if(node2 != null) {
-                        root = new AST(t.getText(), ASTType.Mul);
+                        if(t.getState() == State.Mul) {
+                            root = new AST(t.getText(), ASTType.Mul);
+                        } else {
+                            root = new AST(t.getText(), ASTType.Div);
+                        }
+
                         root.addChild(pri);
                         root.addChild(node2);
                         pri = root;

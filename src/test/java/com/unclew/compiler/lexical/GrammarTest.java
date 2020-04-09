@@ -24,12 +24,15 @@ public class GrammarTest {
 
     @Test
     public void testIntDeclaration() throws Exception {
-        String str = "int age = 567789 + 3 * 5";
-        LexicalCompiler lexicalCompiler = new LexicalCompiler(str);
+        String str = "int age = 567789 + 3 * 5 + 1 + 8 / 4   - 6";
+        String str1 = "2 + 3 * 5 - 6 / 3 + 1";
+        LexicalCompiler lexicalCompiler = new LexicalCompiler(str1);
         SimpleTokenMachine tokenMachine = lexicalCompiler.parsing();
 
-        AST intDeclarationNode = compiler.intDeclaration(tokenMachine);
+//        AST intDeclarationNode = compiler.intDeclaration(tokenMachine);
+        AST expression = compiler.addExpression(tokenMachine);
         System.out.println();
-        System.out.println(intDeclarationNode);
+        System.out.println(expression);
+
     }
 }
