@@ -17,3 +17,12 @@
 
 1. 字符序列读取的数量，有些时候因为回溯会导致字符读取的次数大于字符本身的数量
 2. 如何简化代码状态转换的可读性
+
+
+### 1.开始词法分析第一步，构建 Token 规则(词法规则 - 构建可以支持表达式计算)
+
+```bash
+TokenType -> src/main/java/com/unclew/compiler/lexical/common/TokenType.java
+```
+
+### 2.构建词法分析有限自动机
