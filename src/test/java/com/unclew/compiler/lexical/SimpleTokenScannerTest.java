@@ -13,7 +13,7 @@ import org.junit.Test;
  * @since 1.0
  */
 public class SimpleTokenScannerTest {
-    private TokenScanner scanner;
+    private TokenScanner<Character> scanner;
 
     @Before
     public void beforeStartup() {

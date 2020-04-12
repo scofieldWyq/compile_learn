@@ -8,5 +8,8 @@ package com.unclew.compiler.lexical.common;
  * @since 1.0
  */
 public enum FiniteState {
+    Init,
+    Digit_1,
+    Digit_2,
     Identifier,
 }
