@@ -16,5 +16,4 @@ public interface ItemScanningFactory<T> {
     void unread(int backOffSet); // 回退到 backOffSet 距离的项目
     void reset(); // 重置
     boolean isTail(); // 是否最后了
-
 }
