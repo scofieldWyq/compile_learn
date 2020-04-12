@@ -11,5 +11,8 @@ public enum FiniteState {
     Init,
     Digit_1,
     Digit_2,
+    Assignment,
+    Equal,
     Identifier,
+    End,
 }

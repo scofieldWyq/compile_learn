@@ -41,6 +41,14 @@ public class FiniteStateMachine2 {
                         state = FiniteState.Digit_1;
                         c = tokenScanner.read();
                         token = new FiniteToken(c, TokenType.Digit);
+                    } else if(c == ';') {
+                        state = FiniteState.End;
+                        c = tokenScanner.read();
+                        token = new FiniteToken(c, TokenType.End);
+                    } else if(c == '=') {
+                        state = FiniteState.Assignment;
+                        c = tokenScanner.read();
+                        token = new FiniteToken(c, TokenType.Assignment);
                     }
                     break;
                 case Digit_1:
@@ -66,6 +74,25 @@ public class FiniteStateMachine2 {
                         hasTokenCatch = true;
                         state = FiniteState.Init;
                     }
+                    break;
+                case End:
+                    hasTokenCatch = true;
+                    state = FiniteState.Init;
+                    break;
+                case Assignment:
+                    if(c == '=') {
+                        state = FiniteState.Equal;
+                        token.changeType(TokenType.Equal);
+                        c = tokenScanner.read();
+                        token.add(c);
+                    } else {
+                        hasTokenCatch = true;
+                        state = FiniteState.Init;
+                    }
+                    break;
+                case Equal:
+                    hasTokenCatch = true;
+                    state = FiniteState.Init;
                     break;
             }
 

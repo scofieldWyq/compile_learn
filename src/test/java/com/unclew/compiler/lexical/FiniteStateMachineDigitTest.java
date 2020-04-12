@@ -40,4 +40,45 @@ public class FiniteStateMachineDigitTest {
         FiniteToken t = machine.get(0);
         assert t != null && t.text().equals(seq);
     }
+
+    @Test
+    public void testEnd() {
+        String seq = ";";
+        machine.setSequence(seq);
+        machine.parsing();
+        System.out.println(machine);
+        FiniteToken t = machine.get(0);
+        assert t != null && t.text().equals(seq);
+    }
+
+    @Test
+    public void testAssignment() {
+        String seq = "=";
+        testToken(seq);
+    }
+
+    @Test
+    public void testEqual() {
+        String seq = "==";
+        testToken(seq);
+    }
+
+    private void testToken(String token) {
+        machine.setSequence(token);
+        machine.parsing();
+        System.out.println(machine);
+        FiniteToken t = machine.get(0);
+        assert t != null && t.text().equals(token);
+    }
+
+    @Test
+    public void testDigitAndEnd() {
+        String seq = "12345;123.456";
+        machine.setSequence(seq);
+        machine.parsing();
+        System.out.println(machine);
+        assert machine.get(0) != null && machine.get(0).text().equals("12345");
+        assert machine.get(1) != null && machine.get(1).text().equals(";");
+        assert machine.get(2) != null && machine.get(2).text().equals("123.456");
+    }
 }
