@@ -26,6 +26,9 @@ public enum TokenType {
     And, // &&
     Or, // ||
     Not, // !
+    AND, // &
+    OR, // |
+    XOR, // ~
     // 赋值相关
     Assignment, // 赋值 =
     PlusAssignment, // +=

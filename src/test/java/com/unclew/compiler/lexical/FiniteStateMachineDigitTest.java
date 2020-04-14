@@ -63,6 +63,30 @@ public class FiniteStateMachineDigitTest {
         testToken(seq);
     }
 
+    @Test
+    public void testGrater() {
+        String seq = ">";
+        testToken(seq);
+    }
+
+    @Test
+    public void testGraterThan(){
+        String seq = ">=";
+        testToken(seq);
+    }
+
+    @Test
+    public void testLess(){
+        String seq = "<";
+        testToken(seq);
+    }
+
+    @Test
+    public void testLessThan(){
+        String seq = "<=";
+        testToken(seq);
+    }
+
     private void testToken(String token) {
         machine.setSequence(token);
         machine.parsing();
